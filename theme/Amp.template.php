@@ -1,20 +1,16 @@
 <?php
 
 /**
- * @name      ElkArte Forum
- * @copyright ElkArte Forum contributors
- * @license   BSD http://opensource.org/licenses/BSD-3-Clause
- *
- * This file contains code covered by:
- * copyright:	2011 Simple Machines (http://www.simplemachines.org)
- * license:  	BSD, See included LICENSE.TXT for terms and conditions.
- *
- * @version 1.1
- *
- */
+* @package "AMP" Addon for Elkarte
+* @author tinoest
+* @license BSD http://opensource.org/licenses/BSD-3-Clause
+*
+* @version 1.0.0
+*
+*/
 
 /**
- * Interface for the bit up the amp page.
+ * Interface for AMP template.
  */
 function template_amp_above()
 {
