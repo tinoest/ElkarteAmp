@@ -34,6 +34,9 @@ function template_amp_above()
 		<meta name="robots" content="noindex" />
 		<title>', $txt['amp_page'], ' - ', $context['topic_subject'], '</title>
 		<style amp-custom>
+			body, html {
+				margin: 1em;
+			}
 			body, a {
 				color: #000;
 				background: #fff;
@@ -172,7 +175,6 @@ function template_amp_page()
 	foreach ($context['posts'] as $post)
 	{
 		// Clean out non amp html
-		//$post['body']	= preg_replace("/onclick=\".*;\"/","",$post['body']);
 		$post['body'] = amp_tags($post['body']);
 		echo '
 			<div class="postheader">
@@ -183,14 +185,15 @@ function template_amp_page()
 				', $post['body'];
 
 		// Show attachment images
-		if (!empty($context['ampattach'][$post['id_msg']]))
+		if (!empty($context['printattach'][$post['id_msg']]))
 		{
 			echo '
 				<hr />';
 
-			foreach ($context['ampattach'][$post['id_msg']] as $attach)
+			foreach ($context['printattach'][$post['id_msg']] as $attach)
 				echo '
-					<img style="width:' . $attach['width'] . 'px; height:' . $attach['height'] . 'px;" src="', $scripturl . '?action=dlattach;topic=' . $topic . '.0;attach=' . $attach['id_attach'] . '" alt="" />';
+					<div class="fixed-container"><amp-img class="contain" layout="fill" src="'.$scripturl . '?action=dlattach;topic=' . $topic . '.0;attach=' . $attach['id_attach'] . '"></amp-img></div>
+				';
 		}
 
 		echo '
