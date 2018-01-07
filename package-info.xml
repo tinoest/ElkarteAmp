@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.elkarte.net/site/package-info">
+<package-info xmlns="http://www.elkarte.net/site/package-info" xmlns:elk="http://www.elkarte.net/">
+	<id>tinoest:ElkAmp</id>
+	<name>Elkarte Amp Compliant Page</name>
+	<version>1.0.0</version>
+	<type>addon</type>
+	<license><![CDATA[
+/**
+ * Amp Compliant Page
+ *
+ * @author tinoest
+ * @license BSD-3
+ *
+ * @version 1.0.0
+ */
+]]></license>
+	<install for="1.1 - 1.1.99">
+		<license type="inline">This Elkarte addon is released under a BSD-3-Clause license.</license>
+		<require-file name="sources/Amp.controller.php" destination="CONTROLLERDIR" />
+		<require-file name="sources/Amp.integration.php" destination="SOURCEDIR" />
+		<require-file name="theme/Amp.template.php" destination="THEMEDIR" />
+		<hook hook="integrate_display_buttons" file="SOURCEDIR/Amp.integration.php" function="idb_elkAmp" />
+	</install>
+
+	<uninstall for="1.1 - 1.1.99">
+		<hook reverse="true" hook="integrate_display_buttons" file="SOURCEDIR/Amp.integration.php" function="idb_elkAmp" />
+		<remove-file name="CONTROLLERDIR/Amp.controller.php" destination="CONTROLLERDIR" />
+		<remove-file name="SOURCEDIR/Amp.integration.php" destination="SOURCEDIR" />
+		<remove-file name="THEMEDIR/Amp.template.php" destination="THEMEDIR" />
+	</uninstall>
+</package-info>
