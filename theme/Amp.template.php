@@ -14,16 +14,14 @@
  */
 function template_amp_above()
 {
-	global $context, $txt;
-
-	$txt['amp_page_images'] = 'Images';
-	$txt['amp_page_text']		= 'Text';
+	global $context, $txt, $settings;
 
 	echo '<!doctype html>
 	<html amp> 
 	<head>
 		<meta charset="utf-8">
 		<script async src="https://cdn.ampproject.org/v0.js"></script>
+		<script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
 		<link rel="canonical" href="', $context['canonical_url'], '" />
 		<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -127,16 +125,6 @@ function template_amp_above()
 			.voted {
 				font-weight: bold;
 			}
-			@media amp {
-				.amp_options {
-					display:none;
-				}
-			}
-			@media screen {
-				.amp_options {
-					margin:1em;
-				}
-			}
 			amp-img.contain img {
 				object-fit: contain;
 			}
@@ -152,15 +140,28 @@ function template_amp_above()
 				background: #222;
 				padding: 1em;
 			}
+			button {
+				float: right;
+			}
 		</style>
 		<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 	</head>
 	<body>
 		<header id="top_section">
-		<div class="amp_options">';
-
-	echo '
-			</div>
+			<amp-sidebar id="sidebar-right" layout="nodisplay" side="right">
+			<ul>';
+			foreach($context['board_list'] as $board) {
+				echo '<li><a href="'.$board['href'].'">'.$board['name'].'</a></li>'.PHP_EOL;
+				if(is_array($board['boards'])) {
+					foreach($board['boards'] as $sub) {
+						echo '<li><a href="'.$sub['href'].'">'.$sub['name'].'</a></li>'.PHP_EOL;
+					}
+				}
+			}
+			echo'
+			</ul>
+			</amp-sidebar>
+			<button on="tap:sidebar-right.toggle" class="ampstart-btn caps m2"><img src="'. $settings['images_url'].'/list.jpg" width="24" height="24" alt="submit" /></button>
 			<h1 id="title">', $context['forum_name_html_safe'], '</h1>
 			<h2 id="linktree">', $context['category_name'], ' => ', (!empty($context['parent_boards']) ? implode(' => ', $context['parent_boards']) . ' => ' : ''), $context['board_name'], ' => ', $txt['topic_started'], ': ', $context['poster_name'], ' ', $txt['search_on'], ' ', $context['post_time'], '</h2>
 		</header>
@@ -238,10 +239,6 @@ function template_amp_below()
 
 	echo '
 			</div>
-		</div>
-		<div class="amp_options">';
-
-	echo '
 		</div>
 		<footer id="footer_section">
 			', theme_copyright(), '

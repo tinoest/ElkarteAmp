@@ -71,8 +71,17 @@ class AMP_Controller extends Action_Controller
 
 		$context['user']['started'] = $user_info['id'] == $topicinfo['id_member'] && !$user_info['is_guest'];
 
-		// Whatever happens don't index this.
-		$context['robot_no_index'] = true;
+		// Retrieve the categories and boards.
+		$boardIndexOptions = array (
+				'include_categories' => true,
+				'base_level' => 0,
+				'parent_id' => 0,
+				'set_latest_post' => false,
+				'countChildPosts' => false,
+		);
+		$boardlist	= new Boards_List($boardIndexOptions);
+		$boards			= $boardlist->getBoards();
+
 
 		// @todo this code is almost the same as the one in Display.controller.php
 		if ($topicinfo['id_poll'] > 0 && !empty($modSettings['pollMode']) && allowedTo('poll_view'))
@@ -88,6 +97,7 @@ class AMP_Controller extends Action_Controller
 		loadTemplate('Amp');
 		$template_layers->add('amp');
 		$context['sub_template']	= 'amp_page';
+		$context['board_list']		= $boards;			
 		$context['board_name']		= $board_info['name'];
 		$context['category_name'] = $board_info['cat']['name'];
 		$context['poster_name']		= $topicinfo['poster_name'];
