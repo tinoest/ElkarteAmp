@@ -20,6 +20,7 @@
 		<require-file name="sources/Amp.controller.php" destination="CONTROLLERDIR" />
 		<require-file name="sources/Amp.integration.php" destination="SOURCEDIR" />
 		<require-file name="theme/Amp.template.php" destination="THEMEDIR" />
+		<require-file name="icons/list.jpg" destination="THEMEDIR/images/" />
 		<hook hook="integrate_display_buttons" file="SOURCEDIR/Amp.integration.php" function="idb_elkAmp" />
 	</install>
 
@@ -28,5 +29,6 @@
 		<remove-file name="CONTROLLERDIR/Amp.controller.php" destination="CONTROLLERDIR" />
 		<remove-file name="SOURCEDIR/Amp.integration.php" destination="SOURCEDIR" />
 		<remove-file name="THEMEDIR/Amp.template.php" destination="THEMEDIR" />
+		<remove-file name="THEMEDIR/images/list.jpg" destination="THEMEDIR" />
 	</uninstall>
 </package-info>

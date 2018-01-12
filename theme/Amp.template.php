@@ -90,7 +90,7 @@ function template_amp_above()
 			div.fixed-container {
 				position: relative;
 				width: 85vw;
-				height: 85vh;
+				height: 40vh;
 			}
 			table {
 				empty-cells: show;
@@ -143,25 +143,35 @@ function template_amp_above()
 			button {
 				float: right;
 			}
+			ul {
+				list-style-type: none;
+				padding: 1em;
+			}
+			li a {
+				text-decoration: none;
+			}
+			li#sub_board {
+				padding-left: 1em;
+			}
 		</style>
 		<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 	</head>
 	<body>
-		<header id="top_section">
 			<amp-sidebar id="sidebar-right" layout="nodisplay" side="right">
 			<ul>';
 			foreach($context['board_list'] as $board) {
 				echo '<li><a href="'.$board['href'].'">'.$board['name'].'</a></li>'.PHP_EOL;
 				if(is_array($board['boards'])) {
 					foreach($board['boards'] as $sub) {
-						echo '<li><a href="'.$sub['href'].'">'.$sub['name'].'</a></li>'.PHP_EOL;
+						echo '<li id="sub_board"><a href="'.$sub['href'].'">'.$sub['name'].'</a></li>'.PHP_EOL;
 					}
 				}
 			}
 			echo'
 			</ul>
 			</amp-sidebar>
-			<button on="tap:sidebar-right.toggle" class="ampstart-btn caps m2"><img src="'. $settings['images_url'].'/list.jpg" width="24" height="24" alt="submit" /></button>
+		<header id="top_section">
+			<button on="tap:sidebar-right.toggle" class="ampstart-btn caps m2"><amp-img src="'. $settings['images_url'].'/list.jpg" width="24" height="24" layout="responsive"> </amp-img></button>
 			<h1 id="title">', $context['forum_name_html_safe'], '</h1>
 			<h2 id="linktree">', $context['category_name'], ' => ', (!empty($context['parent_boards']) ? implode(' => ', $context['parent_boards']) . ' => ' : ''), $context['board_name'], ' => ', $txt['topic_started'], ': ', $context['poster_name'], ' ', $txt['search_on'], ' ', $context['post_time'], '</h2>
 		</header>
@@ -251,8 +261,9 @@ function amp_tags($post)
 {
 
 	$replacements = array(
-		'<a href="([^"]+)" onclick="([^"]+)" class="([^"]+)">' => '<a href="$1" class="$3">',
-		'<img src="([^"]+)" alt="" class="([^"]+)" \/>' => '<div class="fixed-container"><amp-img class="contain" layout="fill" src="$1" alt=""></amp-img></div>'
+		'<a href="([^"]+)" onclick="([^"]+)" class="([^"]+)">'								=> '<a href="$1" class="$3">',
+		'<img src="([^"]+)" alt="" class="([^"]+)" \/>'												=> '<div class="fixed-container"><amp-img class="contain" layout="fill" src="$1" alt=""></amp-img></div>',
+		'<img src="([^"]+)" alt="([^"]+)" title="([^"]+)" class="smiley" \/>'	=> '<amp-img class="smiley" height="16" width="16" layout="fixed" src="$1" alt="$2" title="$3"></amp-img>'
 	);
 
 	foreach($replacements as $key => $value) {
