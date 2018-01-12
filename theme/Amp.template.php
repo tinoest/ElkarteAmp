@@ -33,9 +33,23 @@ function template_amp_above()
 			body, html {
 				margin: 1em;
 			}
+			header#top_section {
+				border-top-color: #5ba048;
+				border-bottom-color: #3d6e32;
+				background: #f4f4f4;
+				background-image: none;
+				background-image: linear-gradient(to bottom,#fefefe,#eee);
+				box-shadow: 0 1px 4px rgba(0,0,0,.3),0 1px 0 #38642d inset;
+				padding: 0.5em;
+			}
+			body {
+				background: #585858 !important;
+				background-image: none !important;
+				background-image: linear-gradient(to right,#333 0,#888 50%,#333 100%)i !important;
+				color: #585858 !important;
+			}			
 			body, a {
 				color: #000;
-				background: #fff;
 			}
 			body, td, .normaltext {
 				font-family: Verdana, arial, helvetica, serif;
@@ -51,10 +65,21 @@ function template_amp_above()
 				font-weight: bold;
 			}
 			dl#posts {
-				width: 90%;
+				background-image: linear-gradient(to right,#333 0,#888 50%,#333 100%);
+				width: 90vw;
 				margin: 0;
 				padding: 0;
 				list-style: none;
+			}
+			div.wrapper {
+				border-color: #4b863c;
+				border-top-color: rgb(75, 134, 60);
+				border-bottom-color: rgb(75, 134, 60);
+				border-top-color: #5ba048;
+				border-bottom-color: #3d6e32;
+				background: #fafafa;
+				box-shadow: 0 2px 4px #111;
+				padding: 1em;
 			}
 			div.postheader, #poll_data {
 				border: solid #000;
@@ -66,8 +91,8 @@ function template_amp_above()
 			}
 			div.fixed-container {
 				position: relative;
-				width: 90vw;
-				height: 90vh;
+				width: 85vw;
+				height: 85vh;
 			}
 			table {
 				empty-cells: show;
@@ -115,10 +140,23 @@ function template_amp_above()
 			amp-img.contain img {
 				object-fit: contain;
 			}
+			footer#footer_section {
+				border-top-color: #3d6e32;
+				background: #222;
+				box-shadow: 0 -1px 0 #686868,0 1px 0 #0e0e0e inset;
+				color: #bbb;
+				padding: 1em;
+			}
+			footer a {
+				color: #fff;
+				background: #222;
+				padding: 1em;
+			}
 		</style>
 		<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 	</head>
 	<body>
+		<header id="top_section">
 		<div class="amp_options">';
 
 	// Which option is set, text or text&images
@@ -130,10 +168,12 @@ function template_amp_above()
 			<strong><a href="', $context['view_attach_mode']['text'], '">', $txt['amp_page_text'], '</a></strong> | <a href="', $context['view_attach_mode']['images'], '">', $txt['amp_page_images'], '</a>';
 
 	echo '
-		</div>
-		<h1 id="title">', $context['forum_name_html_safe'], '</h1>
-		<h2 id="linktree">', $context['category_name'], ' => ', (!empty($context['parent_boards']) ? implode(' => ', $context['parent_boards']) . ' => ' : ''), $context['board_name'], ' => ', $txt['topic_started'], ': ', $context['poster_name'], ' ', $txt['search_on'], ' ', $context['post_time'], '</h2>
-		<div id="posts">';
+			</div>
+			<h1 id="title">', $context['forum_name_html_safe'], '</h1>
+			<h2 id="linktree">', $context['category_name'], ' => ', (!empty($context['parent_boards']) ? implode(' => ', $context['parent_boards']) . ' => ' : ''), $context['board_name'], ' => ', $txt['topic_started'], ': ', $context['poster_name'], ' ', $txt['search_on'], ' ', $context['post_time'], '</h2>
+		</header>
+		<div class="wrapper">
+			<div id="posts">';
 }
 
 /**
@@ -173,18 +213,18 @@ function template_amp_page()
 		// Clean out non amp html
 		$post['body'] = amp_tags($post['body']);
 		echo '
-			<div class="postheader">
-				', $txt['title'], ': <strong>', $post['subject'], '</strong><br />
-				', $txt['post_by'], ': <strong>', $post['member'], '</strong> ', $txt['search_on'], ' <strong>', $post['time'], '</strong>
-			</div>
-			<div class="postbody">
-				', $post['body'];
+				<div class="postheader">
+					', $txt['title'], ': <strong>', $post['subject'], '</strong><br />
+					', $txt['post_by'], ': <strong>', $post['member'], '</strong> ', $txt['search_on'], ' <strong>', $post['time'], '</strong>
+				</div>
+				<div class="postbody">
+					', $post['body'];
 
 		// Show attachment images
 		if (!empty($context['printattach'][$post['id_msg']]))
 		{
 			echo '
-				<hr />';
+					<hr />';
 
 			foreach ($context['printattach'][$post['id_msg']] as $attach)
 				echo '
@@ -205,6 +245,7 @@ function template_amp_below()
 	global $txt, $context;
 
 	echo '
+			</div>
 		</div>
 		<div class="amp_options">';
 
@@ -218,9 +259,9 @@ function template_amp_below()
 
 	echo '
 		</div>
-		<div id="footer" class="smalltext">
+		<footer id="footer_section">
 			', theme_copyright(), '
-		</div>
+		</footer>
 	</body>
 </html>';
 }
