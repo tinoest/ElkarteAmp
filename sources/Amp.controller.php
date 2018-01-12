@@ -35,9 +35,9 @@ class AMP_Controller extends Action_Controller
 	 *
 	 * What id does:
 	 * - Must be called with a topic specified.
-	 * - Accessed via ?action=topic;sa=amp.
+	 * - Accessed via ?action=topic;action=amp.
 	 *
-	 * @uses template_amp_page() in Printpage.template,
+	 * @uses template_amp_page() in Amp.template,
 	 * @uses template_amp_above() later without the main layer.
 	 * @uses template_amp_below() without the main layer
 	 */
@@ -99,15 +99,15 @@ class AMP_Controller extends Action_Controller
 			$context['parent_boards'][] = $parent['name'];
 		}
 
-		// Split the topics up so we can print them.
-		$context['posts']	= topicMessages($topic);
+		// Split the topics up so we can display them.
+		$context['posts']	= topicMessages($topic, '');
 		$posts_id = array_keys($context['posts']);
 
 		if (!isset($context['topic_subject']))
 			$context['topic_subject'] = $context['posts'][min($posts_id)]['subject'];
 
-		// Fetch attachments so we can print them if asked, enabled and allowed
-		if (isset($this->_req->query->images) && !empty($modSettings['attachmentEnable']) && allowedTo('view_attachments'))
+		// Fetch attachments so we can display them if asked, enabled and allowed
+		if (!empty($modSettings['attachmentEnable']) && allowedTo('view_attachments'))
 		{
 			require_once(SUBSDIR . '/Topic.subs.php');
 			$context['printattach'] = messagesAttachments(array_keys($context['posts']));
@@ -116,10 +116,6 @@ class AMP_Controller extends Action_Controller
 
 		// Set a canonical URL for this page.
 		$context['canonical_url'] = $scripturl . '?topic=' . $topic . '.0';
-		$context['view_attach_mode'] = array(
-			'text' => $scripturl . '?action=amp;topic=' . $topic . '.0',
-			'images' => $scripturl . '?action=amp;topic=' . $topic . '.0;images',
-		);
 	}
 
 }

@@ -43,10 +43,10 @@ function template_amp_above()
 				padding: 0.5em;
 			}
 			body {
-				background: #585858 !important;
-				background-image: none !important;
-				background-image: linear-gradient(to right,#333 0,#888 50%,#333 100%)i !important;
-				color: #585858 !important;
+				background: #585858;
+				background-image: none;
+				background-image: linear-gradient(to right,#333 0,#888 50%,#333 100%);
+				color: #585858;
 			}			
 			body, a {
 				color: #000;
@@ -159,14 +159,6 @@ function template_amp_above()
 		<header id="top_section">
 		<div class="amp_options">';
 
-	// Which option is set, text or text&images
-	if (!empty($context['viewing_attach']))
-		echo '
-			<a href="', $context['view_attach_mode']['text'], '">', $txt['amp_page_text'], '</a> | <strong><a href="', $context['view_attach_mode']['images'], '">', $txt['amp_page_images'], '</a></strong>';
-	else
-		echo '
-			<strong><a href="', $context['view_attach_mode']['text'], '">', $txt['amp_page_text'], '</a></strong> | <a href="', $context['view_attach_mode']['images'], '">', $txt['amp_page_images'], '</a>';
-
 	echo '
 			</div>
 			<h1 id="title">', $context['forum_name_html_safe'], '</h1>
@@ -248,14 +240,6 @@ function template_amp_below()
 			</div>
 		</div>
 		<div class="amp_options">';
-
-	// Show the text / image links
-	if (!empty($context['viewing_attach']))
-		echo '
-			<a href="', $context['view_attach_mode']['text'], '">', $txt['amp_page_text'], '</a> | <strong><a href="', $context['view_attach_mode']['images'], '">', $txt['amp_page_images'], '</a></strong>';
-	else
-		echo '
-			<strong><a href="', $context['view_attach_mode']['text'], '">', $txt['amp_page_text'], '</a></strong> | <a href="', $context['view_attach_mode']['images'], '">', $txt['amp_page_images'], '</a>';
 
 	echo '
 		</div>
