@@ -89,7 +89,7 @@ function template_amp_above()
 			}
 			div.fixed-container {
 				position: relative;
-				width: 85vw;
+				/*width: 85vw;*/
 				height: 40vh;
 			}
 			table {
@@ -157,7 +157,7 @@ function template_amp_above()
 		<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 	</head>
 	<body>
-			<amp-sidebar id="sidebar-right" layout="nodisplay" side="right">
+		<amp-sidebar id="sidebar-right" layout="nodisplay" side="right">
 			<ul>';
 			foreach($context['board_list'] as $board) {
 				echo '<li><a href="'.$board['href'].'">'.$board['name'].'</a></li>'.PHP_EOL;
@@ -169,9 +169,9 @@ function template_amp_above()
 			}
 			echo'
 			</ul>
-			</amp-sidebar>
+		</amp-sidebar>
 		<header id="top_section">
-			<button on="tap:sidebar-right.toggle" class="ampstart-btn caps m2"><amp-img src="'. $settings['images_url'].'/list.jpg" width="24" height="24" layout="responsive"> </amp-img></button>
+			<button on="tap:sidebar-right.toggle" class="ampstart-btn caps m2"><amp-img src="'. $settings['images_url'].'/list.jpg" width="24" height="24" layout="fixed"></amp-img></button>
 			<h1 id="title">', $context['forum_name_html_safe'], '</h1>
 			<h2 id="linktree">', $context['category_name'], ' => ', (!empty($context['parent_boards']) ? implode(' => ', $context['parent_boards']) . ' => ' : ''), $context['board_name'], ' => ', $txt['topic_started'], ': ', $context['poster_name'], ' ', $txt['search_on'], ' ', $context['post_time'], '</h2>
 		</header>
